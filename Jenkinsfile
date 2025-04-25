@@ -69,20 +69,20 @@ pipeline {
                 // İndirilen zip dosyasını sil
                 sh "rm $WORKSPACE/.sonar/$SONAR_SCANNER_ZIP"
 
-                # --- ÖNEMLİ: Betik Düzenlemesi ---
+                /**# --- ÖNEMLİ: Betik Düzenlemesi ---
                 # Eğer önceki sorunları çözmek için betiği manuel düzenlediyseniz (use_embedded_jre=false gibi),
                 # bu değişikliği her pipeline çalıştırıldığında otomatik yapmak için sed gibi bir araç kullanabilirsiniz.
                 # Ancak, eğer betik içinde JAVA_HOME'u hardcode ettiyseniz ve bu işe yaradıysa,
                 # bu sed komutu gerekmeyebilir veya farklı bir sed komutuna ihtiyacınız olabilir.
                 # sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' ${SONAR_SCANNER_HOME}/bin/sonar-scanner # Örnek sed komutu
-
+**/
                 echo "SonarQube Scanner PATH environment variable set (for this stage)."
-                # NOT: Bu PATH ayarı sadece bu 'sh' bloğu için geçerlidir.
-                # Eğer analiz aşaması farklı bir 'sh' bloğu ise, orada tekrar ayarlamak gerekir veya tam yolu kullanmak daha güvenlidir.
+              //  # NOT: Bu PATH ayarı sadece bu 'sh' bloğu için geçerlidir.
+               // # Eğer analiz aşaması farklı bir 'sh' bloğu ise, orada tekrar ayarlamak gerekir veya tam yolu kullanmak daha güvenlidir.
                 export PATH="${SONAR_SCANNER_HOME}/bin:\$PATH"
 
                 echo "SonarQube Scanner setup complete."
-                sh "sonar-scanner --version" # Kurulumu doğrula
+                sh "sonar-scanner --version" //# Kurulumu doğrula
 
             }
         }
@@ -98,7 +98,7 @@ pipeline {
                     sh '''
                     echo "Starting SonarQube Scanner analysis..."
 
-                    # SonarQube Scanner'ın tam yolunu kullanmak en güvenli yoldur,
+                    /** # SonarQube Scanner'ın tam yolunu kullanmak en güvenli yoldur,
                     # çünkü PATH ayarının önceki aşamalardan kalıp kalmadığı belirsiz olabilir.
                     # SONAR_SCANNER_HOME değişkeninin hala tanımlı olduğunu varsayıyoruz (Setup aşamasından).
                     # Eğer setup aşaması ayrı bir sh bloğunda ise ve değişken kayboluyorsa,
@@ -110,9 +110,9 @@ pipeline {
                     # SonarQube Scanner komutunu çalıştır
                     # Parametreleri -D ile belirtilir
                     # DİKKAT: Windows için '.bat' değil, Linux shell scripti 'sonar-scanner' kullanıyoruz.
-                    # Satır sonlarındaki ters slash ('\\') komutun devam ettiğini belirtir, tek satırda yazarsanız gerekmez.
+                    # Satır sonlarındaki ters slash ('\\') komutun devam ettiğini belirtir, tek satırda yazarsanız gerekmez. **/
                     ${SONAR_SCANNER_HOME}/bin/sonar-scanner \\
-                      -D"sonar.projectKey=e-commerce-app" \\    # <<< BURAYI KENDİ PROJE ANAHTARINIZ İLE DEĞİŞTİRİN!
+                      -D"sonar.projectKey=e-commerce-app" \\    / # <<< BURAYI KENDİ PROJE ANAHTARINIZ İLE DEĞİŞTİRİN!
                       -D"sonar.sources=." \\                    # <<< Analiz edilecek dizin (.) mevcut dizin demektir
                       -D"sonar.host.url=http://localhost:9000" \\ # <<< BURAYI KENDİ SONARQUBE URL'NİZ İLE DEĞİŞTİRİN!
                       -D"sonar.login=$SONAR_TOKEN"              # <<< TOKEN'I GÜVENLİCE BURADA KULLANIYORUZ!
