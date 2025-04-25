@@ -47,7 +47,7 @@ pipeline {
             steps {
                 echo "Setting up SonarQube Scanner"
                 // SonarQube Scanner versiyonunu belirle (SonarQube sunucunuzla uyumlu olmalı)
-                export SONAR_SCANNER_VERSION="4.7.0.2747" # <<< BURAYI KENDİ VERSİYONUNUZ İLE DEĞİŞTİRİN!
+                export SONAR_SCANNER_VERSION="4.7.0.2747" //# <<< BURAYI KENDİ VERSİYONUNUZ İLE DEĞİŞTİRİN!
                 export SONAR_SCANNER_ZIP="sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux.zip"
                 export SONAR_SCANNER_DOWNLOAD_URL="https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/$SONAR_SCANNER_ZIP"
                 // Scanner'ın kurulacağı dizini WORKSPACE içinde belirle
